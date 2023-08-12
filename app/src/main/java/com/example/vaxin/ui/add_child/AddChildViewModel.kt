@@ -18,6 +18,8 @@ class AddChildViewModel @Inject constructor(
     private val vaxinRepository: VaxinRepository
 ): ViewModel() {
 
+    val balakrishnaWithVaccines = vaxinRepository.getVaccinesOfChild("Balakrishna")
+
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
     var today = LocalDateTime.now().format(formatter)
     var todayPlus060 = LocalDateTime.now().plusDays(60).format(formatter)
