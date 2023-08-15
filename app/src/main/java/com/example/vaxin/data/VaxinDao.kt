@@ -29,4 +29,10 @@ interface VaxinDao {
     @Transaction
     @Query("SELECT * FROM Vaccine WHERE vaccineName = :vaccineName")
     fun getChildsOfVaccine(vaccineName: String): Flow<List<VaccineWithChilds>>
+
+    @Query("SELECT * FROM Child")
+    fun getChilds(): Flow<List<Child>>
+
+    @Query("SELECT * FROM Vaccine")
+    fun getVaccines(): Flow<List<Vaccine>>
 }

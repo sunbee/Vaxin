@@ -1,5 +1,6 @@
 package com.example.vaxin.data
 
+import androidx.room.Query
 import com.example.vaxin.data.relations.ChildVaccineCrossRef
 import com.example.vaxin.data.relations.ChildWithVaccines
 import com.example.vaxin.data.relations.VaccineWithChilds
@@ -16,4 +17,8 @@ interface VaxinRepository {
     fun getVaccinesOfChild(childName: String): Flow<List<ChildWithVaccines>>
 
     fun getChildsOfVaccine(vaccineName: String): Flow<List<VaccineWithChilds>>
+
+    fun getChilds(): Flow<List<Child>>
+
+    fun getVaccines(): Flow<List<Vaccine>>
 }

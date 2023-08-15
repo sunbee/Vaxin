@@ -27,4 +27,12 @@ class VaxinRepositoryImpl(
     override fun getChildsOfVaccine(vaccineName: String): Flow<List<VaccineWithChilds>> {
         return vaxinDao.getChildsOfVaccine(vaccineName)
     }
+
+    override fun getChilds(): Flow<List<Child>> {
+        return vaxinDao.getChilds()
+    }
+
+    override fun getVaccines(): Flow<List<Vaccine>> {
+        return vaxinDao.getVaccines()
+    }
 }
