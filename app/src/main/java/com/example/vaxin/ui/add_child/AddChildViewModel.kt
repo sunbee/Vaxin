@@ -137,8 +137,6 @@ class AddChildViewModel @Inject constructor(
     /*
     * Pre-populate the DB with sample data.
     * */
-    val balakrishnaWithVaccines = vaxinRepository.getVaccinesOfChild("Balakrishna")
-
     fun populateDBDefaults() {
         viewModelScope.launch(Dispatchers.IO) {
             SampleData.childs.forEach { child ->

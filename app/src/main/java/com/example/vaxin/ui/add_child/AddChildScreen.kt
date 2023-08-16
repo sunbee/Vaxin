@@ -53,8 +53,6 @@ fun AddChildScreen(
         .fillMaxSize()
 ) {
 
-    val balaVaccines = viewModel.balakrishnaWithVaccines.collectAsState(initial = emptyList())
-
     val childs = viewModel.childs.collectAsState(initial = emptyList())
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -165,17 +163,6 @@ fun AddChildScreen(
                         child = child,
                         onEvent = viewModel::onEvent)
                 }
-                /*
-                items(balaVaccines.value) {
-                    Text(text = it.child.childName)
-                    Spacer(modifier = Modifier
-                        .fillMaxWidth()
-                        .height(16.dp))
-                    it.vaccines.forEach {
-                        Text(text = it.vaccineName)
-                    }  // end
-                }  // end ITEMS
-                */
             }  // end LAZY COLUMN
         }  // end COLUMN
     }  // end SCAFFOLD
