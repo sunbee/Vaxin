@@ -51,6 +51,9 @@ interface VaxinDao {
     @Query("SELECT * FROM Vaccine")
     fun getVaccines(): Flow<List<Vaccine>>
 
+    @Query("SELECT * FROM ChildVaccineCrossRef WHERE childName = :childName")
+    fun getChildVaccineCrossRefs(childName: String): Flow<List<ChildVaccineCrossRef>>
+
     /*
     * CRU(D)
     * Remove records.

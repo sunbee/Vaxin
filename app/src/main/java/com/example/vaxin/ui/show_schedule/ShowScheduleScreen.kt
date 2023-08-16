@@ -24,13 +24,29 @@ fun ShowScheduleScreen(
 
     val childVaccines = viewModel.childWithVaccines.collectAsState(initial = emptyList())
 
+    /*
+    * Sample usage to illustrate collecting info from from Singe Source of Truth
+    * in the data layer with the application of a filter transform in the view model.
+    * */
     val vaccinesDue90 = viewModel.vaccinesDue90.collectAsState(initial = emptyList())
+
+    val vaccinesDue = viewModel.childVaccinesDue.collectAsState(initial = emptyList())
+
+    val vaccinesOverdue = viewModel.childVaccinesOverdue.collectAsState(initial = emptyList())
 
     Column(modifier = Modifier.fillMaxSize()) {
         Text("Hello, ${childId}")
         LazyColumn() {
-            items(vaccinesDue90.value) {
-                Text(it.daysAfterBirth.toString())
+            items(vaccinesOverdue.value) {childVaccineCrossRef ->
+                ShowVaccineCard(
+                    vaccineCrossRef = childVaccineCrossRef,
+                    onEvent = viewModel::onEvent)
+            }
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyColumn() {
+            items(vaccinesDue.value) {
+                Text(it.dueDate.toString())
 
             }
         }

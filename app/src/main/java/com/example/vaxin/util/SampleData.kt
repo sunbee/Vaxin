@@ -234,11 +234,13 @@ object SampleData {
     fun generateChildVaccineCrossRefs(child: Child): ArrayList<ChildVaccineCrossRef> {
         var childVaccineCrossRefs = ArrayList<ChildVaccineCrossRef>(emptyList())
         SampleData.vaccines.forEach { vaccine ->
+            val dob = LocalDate.parse(child.dob, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val dueDate = dob.plusDays(vaccine.daysAfterBirth.toLong())
             childVaccineCrossRefs.add(
                 ChildVaccineCrossRef(
                     childName = child.childName,
                     vaccineName = vaccine.vaccineName,
-                    dueDate = child.dob,
+                    dueDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(dueDate),
                     isDone = false
                 )
             )

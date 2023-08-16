@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 class VaxinRepositoryImpl(
     private val vaxinDao: VaxinDao
 ): VaxinRepository {
+    /* (C)RUD - CREATE */
     override suspend fun insertChild(child: Child) {
         vaxinDao.insertChild(child)
     }
@@ -22,6 +23,7 @@ class VaxinRepositoryImpl(
         vaxinDao.insertChildVaccineCrossRef(childVaccineCrossRef)
     }
 
+    /* C(R)UD - RETRIEVE */
     override fun getVaccinesOfChild(childName: String): Flow<List<ChildWithVaccines>> {
         return vaxinDao.getVaccinesOfChild(childName)
     }
@@ -38,6 +40,11 @@ class VaxinRepositoryImpl(
         return vaxinDao.getVaccines()
     }
 
+    override fun getChildVaccineCrossRefs(childName: String): Flow<List<ChildVaccineCrossRef>> {
+        return vaxinDao.getChildVaccineCrossRefs(childName)
+    }
+
+    /* CRU(D) - DELETE */
     override fun deleteChild(child: Child) {
         vaxinDao.deleteChild(child)
     }

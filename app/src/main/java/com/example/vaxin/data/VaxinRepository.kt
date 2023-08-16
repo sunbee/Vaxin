@@ -10,25 +10,30 @@ import kotlinx.coroutines.flow.Flow
 
 interface VaxinRepository {
 
-    suspend fun insertChild(child: Child)
+/* (C)RUD - CREATE */
+suspend fun insertChild(child: Child)
 
-    suspend fun insertVaccine(vaccine: Vaccine)
+suspend fun insertVaccine(vaccine: Vaccine)
 
-    suspend fun insertChildVaccineCrossRef(childVaccineCrossRef: ChildVaccineCrossRef)
+suspend fun insertChildVaccineCrossRef(childVaccineCrossRef: ChildVaccineCrossRef)
 
-    fun getVaccinesOfChild(childName: String): Flow<List<ChildWithVaccines>>
+/* C(R)UD - RETRIEVE */
+fun getVaccinesOfChild(childName: String): Flow<List<ChildWithVaccines>>
 
-    fun getChildsOfVaccine(vaccineName: String): Flow<List<VaccineWithChilds>>
+fun getChildsOfVaccine(vaccineName: String): Flow<List<VaccineWithChilds>>
 
-    fun getChilds(): Flow<List<Child>>
+fun getChilds(): Flow<List<Child>>
 
-    fun getVaccines(): Flow<List<Vaccine>>
+fun getVaccines(): Flow<List<Vaccine>>
 
-    fun deleteChild(child: Child)
+fun getChildVaccineCrossRefs(childName: String): Flow<List<ChildVaccineCrossRef>>
 
-    fun deleteVaccinesOfChild(childName: String)
+/* CRU(D) - DELETE */
+fun deleteChild(child: Child)
 
-    fun deleteChilds()
+fun deleteVaccinesOfChild(childName: String)
 
-    fun deleteChildVaccinesCrossRefs()
+fun deleteChilds()
+
+fun deleteChildVaccinesCrossRefs()
 }
