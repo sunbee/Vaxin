@@ -31,6 +31,7 @@ class AddChildViewModel @Inject constructor(
 ): ViewModel() {
 
     val TAG = "ADD_CHILD"
+
     /*
     * Handle the calendar for date-picking,
     * using a third-party plugin for calendar/clock.
@@ -54,6 +55,8 @@ class AddChildViewModel @Inject constructor(
     val childs = vaxinRepository.getChilds()
 
     val vaccines = vaxinRepository.getVaccines()
+
+    private var deletedChild: Child? = null
 
     private val _uiEvent = MutableSharedFlow<UiEvent>(replay = 0)
     val uiEvent = _uiEvent.asSharedFlow()
@@ -101,9 +104,37 @@ class AddChildViewModel @Inject constructor(
                     }
                 }
             }
+            is AddChildEvent.OnChildDelete -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    vaxinRepository.deleteVaccinesOfChild(addChildEvent.child.childName)
+                    vaxinRepository.deleteChild(addChildEvent.child)
+                    withContext(Dispatchers.Main) {
+                        _uiEvent.emit(UiEvent.ShowSnackbar(
+                            message = "You have deleted ${addChildEvent.child.childName}!",
+                            actionLabel = "Undo"
+                        ))
+                    }
+                }
+
+            }
+            is AddChildEvent.OnChildDeleteUndo -> {
+                deletedChild?.let{ child ->
+                    viewModelScope.launch(Dispatchers.IO) {
+                        val childVaccineCrossRefs = SampleData.generateChildVaccineCrossRefs(
+                            child = child,
+                            date = pickedDate.value
+                        ).toList()
+                        vaxinRepository.insertChild(child)
+                        childVaccineCrossRefs.forEach { childVaccineCrossRef ->
+                            vaxinRepository.insertChildVaccineCrossRef(childVaccineCrossRef)
+                        }
+                    }
+                }
+            }
             else -> Unit
         }
     }
+
     /*
     * Pre-populate the DB with sample data.
     * */
@@ -122,7 +153,15 @@ class AddChildViewModel @Inject constructor(
         }
     }
 
+    fun clearDBContents() {
+        viewModelScope.launch(Dispatchers.IO) {
+            vaxinRepository.deleteChilds()
+            vaxinRepository.deleteChildVaccinesCrossRefs()
+        }
+    }
+
     init {
+        clearDBContents()  // One-Time ONLY!
         populateDBDefaults()
     }
 

@@ -20,8 +20,10 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -68,10 +70,17 @@ fun AddChildScreen(
                     onNavigate(event)
                 }
                 is UiEvent.ShowSnackbar -> {
-                    snackbarHostState.showSnackbar(
+                    val snackbarResult = snackbarHostState.showSnackbar(
                         message = event.message,
-                        actionLabel = event.actionLabel
+                        actionLabel = event.actionLabel,
+                        duration = SnackbarDuration.Short
                     )
+                    when (snackbarResult) {
+                        SnackbarResult.ActionPerformed -> {
+                            viewModel.onEvent(AddChildEvent.OnChildDeleteUndo)
+                        }
+                        else -> Unit
+                    }
                 }
                 else -> Unit
             }

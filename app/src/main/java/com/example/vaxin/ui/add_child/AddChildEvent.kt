@@ -12,4 +12,6 @@ sealed class AddChildEvent {
     data class OnChildSelected(val child: Child): AddChildEvent()
     data class OnChildNameChange(val childName: String): AddChildEvent()
     object OnAddChild: AddChildEvent()
+    data class OnChildDelete(val child: Child): AddChildEvent()
+    object OnChildDeleteUndo: AddChildEvent()
 }

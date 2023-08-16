@@ -1,5 +1,7 @@
 package com.example.vaxin.data
 
+import androidx.room.Delete
+import androidx.room.Query
 import com.example.vaxin.data.relations.ChildVaccineCrossRef
 import com.example.vaxin.data.relations.ChildWithVaccines
 import com.example.vaxin.data.relations.VaccineWithChilds
@@ -34,5 +36,21 @@ class VaxinRepositoryImpl(
 
     override fun getVaccines(): Flow<List<Vaccine>> {
         return vaxinDao.getVaccines()
+    }
+
+    override fun deleteChild(child: Child) {
+        vaxinDao.deleteChild(child)
+    }
+
+    override fun deleteVaccinesOfChild(childName: String) {
+        vaxinDao.deleteVaccinesOfChild(childName)
+    }
+
+    override fun deleteChilds() {
+        vaxinDao.deleteChilds()
+    }
+
+    override fun deleteChildVaccinesCrossRefs() {
+        vaxinDao.deleteChildVaccinesCrossRefs()
     }
 }
