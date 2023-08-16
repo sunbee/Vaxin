@@ -231,16 +231,14 @@ object SampleData {
     * To add a child, we must take care of populating cross-ref table
     * that holds the many-many relationship. Here is the function to do that.
     * */
-    fun generateChildVaccineCrossRefs(child: Child, date: LocalDate): ArrayList<ChildVaccineCrossRef> {
+    fun generateChildVaccineCrossRefs(child: Child): ArrayList<ChildVaccineCrossRef> {
         var childVaccineCrossRefs = ArrayList<ChildVaccineCrossRef>(emptyList())
         SampleData.vaccines.forEach { vaccine ->
             childVaccineCrossRefs.add(
                 ChildVaccineCrossRef(
                     childName = child.childName,
                     vaccineName = vaccine.vaccineName,
-                    dueDate = DateTimeFormatter
-                        .ofPattern("yyyy-MM-dd")
-                        .format(date.plusDays(vaccine.daysAfterBirth.toLong())),
+                    dueDate = child.dob,
                     isDone = false
                 )
             )

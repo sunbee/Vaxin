@@ -95,8 +95,7 @@ class AddChildViewModel @Inject constructor(
                         dob = formattedDate.value
                     )
                     val childVaccineCrossRefs = SampleData.generateChildVaccineCrossRefs(
-                        child = child,
-                        date = pickedDate.value
+                        child = child
                     ).toList()
                     vaxinRepository.insertChild(child)
                     childVaccineCrossRefs.forEach { childVaccineCrossRef ->
@@ -106,6 +105,7 @@ class AddChildViewModel @Inject constructor(
             }
             is AddChildEvent.OnChildDelete -> {
                 viewModelScope.launch(Dispatchers.IO) {
+                    deletedChild = addChildEvent.child
                     vaxinRepository.deleteVaccinesOfChild(addChildEvent.child.childName)
                     vaxinRepository.deleteChild(addChildEvent.child)
                     withContext(Dispatchers.Main) {
@@ -121,8 +121,7 @@ class AddChildViewModel @Inject constructor(
                 deletedChild?.let{ child ->
                     viewModelScope.launch(Dispatchers.IO) {
                         val childVaccineCrossRefs = SampleData.generateChildVaccineCrossRefs(
-                            child = child,
-                            date = pickedDate.value
+                            child = child
                         ).toList()
                         vaxinRepository.insertChild(child)
                         childVaccineCrossRefs.forEach { childVaccineCrossRef ->
@@ -161,7 +160,7 @@ class AddChildViewModel @Inject constructor(
     }
 
     init {
-        clearDBContents()  // One-Time ONLY!
+        // Debug: // clearDBContents()  // One-Time ONLY!
         populateDBDefaults()
     }
 
