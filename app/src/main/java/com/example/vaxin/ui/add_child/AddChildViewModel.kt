@@ -12,6 +12,7 @@ import com.example.vaxin.data.Child
 import com.example.vaxin.data.Vaccine
 import com.example.vaxin.data.VaxinRepository
 import com.example.vaxin.data.relations.ChildVaccineCrossRef
+import com.example.vaxin.util.Routes
 import com.example.vaxin.util.SampleData
 import com.example.vaxin.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -67,7 +68,12 @@ class AddChildViewModel @Inject constructor(
                 childName.value = addChildEvent.childName
             }
             is AddChildEvent.OnChildSelected -> {
-                Log.d("REFACTOR", "Navigate to main display.")
+                viewModelScope.launch {
+                    val childId = addChildEvent.child.childName
+                    Log.d("VM_EMIT", "Navigate to SHOW_SCHEDULE_SCREEN with $childId.")
+                    _uiEvent.emit(UiEvent.Navigate(Routes.SHOW_SCHEDULE_SCREEN + "?childId=$childId"))
+
+                }
             }
             is AddChildEvent.OnAddChild -> {
                 /*

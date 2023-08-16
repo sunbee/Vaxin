@@ -1,5 +1,6 @@
 package com.example.vaxin.ui.add_child
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -65,6 +66,7 @@ fun AddChildScreen(
         viewModel.uiEvent.collect() { event ->
             when(event) {
                 is UiEvent.Navigate -> {
+                    Log.d("UI_COLLECT", "Navigate to ${event.route}")
                     onNavigate(event)
                 }
                 is UiEvent.ShowSnackbar -> {

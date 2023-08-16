@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.vaxin.ui.add_child.AddChildScreen
+import com.example.vaxin.ui.show_schedule.ShowScheduleScreen
 import com.example.vaxin.ui.theme.VaxinTheme
 import com.example.vaxin.util.Routes
 import com.example.vaxin.util.UiEvent
@@ -51,12 +52,11 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ) { backStackEntry ->
-                        val childId = backStackEntry.arguments?.getString("childId")
-
-
+                        val childId = backStackEntry.arguments?.getString("childId") ?: "Balakrishna"
+                        ShowScheduleScreen(childId = childId)
                     }
                     composable(
-                        route = Routes.SHOW_DETAIL_SCREEN,
+                        route = Routes.SHOW_DETAIL_SCREEN + "?vaccineId={vaccineId}",
                         arguments = listOf(
                             navArgument(name = "vaccineId") {
                                 type = NavType.StringType
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     ) {
-
+                        TODO("ShowDetailScreen")
                     }
                 }
             }
