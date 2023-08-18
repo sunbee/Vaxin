@@ -89,4 +89,7 @@ dependencies {
 
     // Calendar/Clock
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
+
+    // Images
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
 }
