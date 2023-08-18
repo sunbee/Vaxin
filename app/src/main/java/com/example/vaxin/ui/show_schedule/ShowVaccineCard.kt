@@ -1,6 +1,7 @@
 package com.example.vaxin.ui.show_schedule
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ import com.example.vaxin.ui.show_schedule.ShowScheduleEvent
 
 @Composable
 fun ShowVaccineCard(
+    childName: String,
     vaccineCrossRef: ChildVaccineCrossRef,
     onEvent: (ShowScheduleEvent) -> Unit,
     modifier: Modifier = Modifier
@@ -43,6 +45,9 @@ fun ShowVaccineCard(
             .background(
                 color = Color.Gray,
                 shape = RoundedCornerShape(16.dp)
+            )
+            .clickable(
+                onClick = { onEvent(ShowScheduleEvent.OnVaccineClicked(vaccineCrossRef.vaccineName)) }
             )
 
     ) {
@@ -61,7 +66,7 @@ fun ShowVaccineCard(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = vaccineCrossRef.dueDate,
+                text = "Due: " + vaccineCrossRef.dueDate,
                 fontSize = 16.sp,
                 color = Color.LightGray,
                 fontStyle = FontStyle.Italic
@@ -70,7 +75,7 @@ fun ShowVaccineCard(
         Checkbox(
             checked = vaccineCrossRef.isDone,
             onCheckedChange = { isChecked ->
-                onEvent(ShowScheduleEvent.OnVaccineChecked(vaccineCrossRef.vaccineName, isChecked))
+                onEvent(ShowScheduleEvent.OnVaccineChecked(childName, vaccineCrossRef.vaccineName, isChecked))
             },
             modifier = Modifier.padding(8.dp)
         )

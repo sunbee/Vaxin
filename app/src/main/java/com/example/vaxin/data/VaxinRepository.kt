@@ -28,6 +28,8 @@ fun getVaccines(): Flow<List<Vaccine>>
 
 fun getChildVaccineCrossRefs(childName: String): Flow<List<ChildVaccineCrossRef>>
 
+fun getChildVaccineCrossRef(childName: String, vaccineName: String): ChildVaccineCrossRef
+
 /* CRU(D) - DELETE */
 fun deleteChild(child: Child)
 

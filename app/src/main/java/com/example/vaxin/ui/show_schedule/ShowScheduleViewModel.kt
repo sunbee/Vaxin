@@ -6,10 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.vaxin.data.Vaccine
 import com.example.vaxin.data.VaxinRepository
 import com.example.vaxin.data.relations.ChildVaccineCrossRef
+import com.example.vaxin.util.Routes
 import com.example.vaxin.util.SampleData
+import com.example.vaxin.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -23,6 +27,11 @@ class ShowScheduleViewModel @Inject constructor(
     private val vaxinRepository: VaxinRepository,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
+
+    val TAG = "SHOW_SCHEDULE"
+
+    private val _uiEvent = MutableSharedFlow<UiEvent>(replay = 0)
+    val uiEvent = _uiEvent.asSharedFlow()
 
     val today = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDate.now())
 
@@ -68,13 +77,19 @@ class ShowScheduleViewModel @Inject constructor(
     * to retrieve the vaccination schedule with completion status.
     * The returned value is a flow of lists to which a filter is applied with map.
     * Now the result is ready to be collected in composable for display.
+    * These are the vaccines due next.
     * */
     var childVaccinesDue = vaxinRepository.getChildVaccineCrossRefs(childId).map { childVaccineCrossRefs ->
         childVaccineCrossRefs.filter { childVaccineCrossRef ->
             ((!childVaccineCrossRef.isDone) && (childVaccineCrossRef.dueDate.compareTo(today) > 0))
-        }
+        }.sortedByDescending {
+            it.dueDate
+        }.reversed()
     }
 
+    /*
+    * Show vaccines that are overdue!
+    * */
     var childVaccinesOverdue = vaxinRepository.getChildVaccineCrossRefs(childId).map { childVaccineCrossRefs ->
         childVaccineCrossRefs.filter { childVaccineCrossRef ->
             ((!childVaccineCrossRef.isDone) && (childVaccineCrossRef.dueDate.compareTo(today) < 0))
@@ -85,13 +100,17 @@ class ShowScheduleViewModel @Inject constructor(
         when(event) {
             is ShowScheduleEvent.OnVaccineChecked -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    TODO("Get ChildVaccineCrossRef by childId, vaccineId, copy, modify, insert.")
+                    val vaccinationRecord = vaxinRepository.getChildVaccineCrossRef(event.childId, event.vaccineId)
+                    vaxinRepository.insertChildVaccineCrossRef(
+                        vaccinationRecord.copy(isDone = event.isDone)
+                    )
                 }
             }
             is ShowScheduleEvent.OnVaccineClicked -> {
-                TODO("Navigate to details with vaccine name.")
+                viewModelScope.launch {
+                    _uiEvent.emit(UiEvent.Navigate(Routes.SHOW_DETAIL_SCREEN + "?vaccineId=${event.vaccineId}"))
+                }
             }
         }
     }
-
 }

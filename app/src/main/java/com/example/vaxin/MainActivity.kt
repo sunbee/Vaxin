@@ -18,6 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.vaxin.ui.add_child.AddChildScreen
+import com.example.vaxin.ui.show_detail.ShowDetailScreen
+import com.example.vaxin.ui.show_detail.ShowDetailViewModel_HiltModules_KeyModule_ProvideFactory
 import com.example.vaxin.ui.show_schedule.ShowScheduleScreen
 import com.example.vaxin.ui.theme.VaxinTheme
 import com.example.vaxin.util.Routes
@@ -30,6 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             VaxinTheme {
+                val TAG = "MAIN_ACTIVITY"
                 val navContoller = rememberNavController()
                 NavHost(
                     navController = navContoller,
@@ -38,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     composable(route = Routes.ADD_CHILD_SCREEN) {
                         AddChildScreen(
                             onNavigate = { event ->
-                                Log.d("REFACTOR", "Navigate to main display.")
+                                Log.d(TAG, "Navigate to schedule screen.")
                                 navContoller.navigate(event.route)
                             }
                         )
@@ -53,7 +56,13 @@ class MainActivity : ComponentActivity() {
                         )
                     ) { backStackEntry ->
                         val childId = backStackEntry.arguments?.getString("childId") ?: "Balakrishna"
-                        ShowScheduleScreen(childId = childId)
+                        ShowScheduleScreen(
+                            childId = childId,
+                            onNavigate = { event ->
+                                Log.d(TAG, "Navigate to details screen.")
+                                navContoller.navigate(event.route)
+                            }
+                        )
                     }
                     composable(
                         route = Routes.SHOW_DETAIL_SCREEN + "?vaccineId={vaccineId}",
@@ -63,8 +72,10 @@ class MainActivity : ComponentActivity() {
                                 defaultValue = "Hepatitis B Vaccine (HepB)"
                             }
                         )
-                    ) {
-                        TODO("ShowDetailScreen")
+                    ) { backStackEntry ->
+                        val vaccineId = backStackEntry.arguments?.getString("vaccineId") ?: "Hepatitis B Vaccine (HepB)"
+                        ShowDetailScreen(
+                            vaccineId = vaccineId)
                     }
                 }
             }

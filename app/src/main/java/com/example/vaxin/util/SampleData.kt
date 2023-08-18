@@ -97,7 +97,7 @@ object SampleData {
             childName = "Balakrishna",
             vaccineName = "Hepatitis B Vaccine (HepB)",
             dueDate = today,
-            isDone = false
+            isDone = false,
         ),
         ChildVaccineCrossRef(
             childName = "Balakrishna",
@@ -221,10 +221,35 @@ object SampleData {
         ),
         ChildVaccineCrossRef(
             childName = "Balakrishna",
-            vaccineName = "Hib (Haemophilus influenzae type b)",
+            vaccineName = "Hib (Haemophilus influenzae type b) 4th Dose",
             dueDate = todayPlus455,
             isDone = false
         )
+    )
+
+    val vaccineImages = mapOf(
+        "Hepatitis B Vaccine (HepB)" to "https://phil.cdc.gov/PHIL_Images/10755/10755_lores.jpg",
+        "RV1 (Rotavirus Vaccine)" to "https://www.cdc.gov/rotavirus/images/disease_rotavirus-3D-lg.jpg",
+        "DTaP (Diphtheria, Tetanus, Pertussis)" to "https://www.cdc.gov/diphtheria/images/diphtheria-photo-phil-22877.jpg",
+        "Hib (Haemophilus influenzae type b)" to "https://www.cdc.gov/hi-disease/images/PHIL_1946.jpg",
+        "IPV (Inactivated Poliovirus Vaccine)" to "https://phil.cdc.gov//PHIL_Images/24871/24871_lores.jpg",
+        "PCV13 (Pneumococcal Conjugate Vaccine)" to "https://www.cdc.gov/pneumococcal/images/s_pneumoniae.jpg",
+        "RV1 (Rotavirus Vaccine) 2nd Dose" to "https://www.cdc.gov/rotavirus/images/disease_rotavirus2-lg.jpg",
+        "DTaP (Diphtheria, Tetanus, Pertussis) 2nd Dose" to "https://www.cdc.gov/tetanus/images/bacteria-phil.jpg",
+        "Hib (Haemophilus influenzae type b) 2nd Dose" to "https://www.cdc.gov/hi-disease/images/PHIL_1047.jpg",
+        "IPV (Inactivated Poliovirus Vaccine) 2nd Dose" to "https://phil.cdc.gov//PHIL_Images/22906/22906_lores.jpg",
+        "PCV13 (Pneumococcal Conjugate Vaccine) 2nd Dose" to "https://www.cdc.gov/pneumococcal/images/phil-2896.jpg",
+        "RV1 (Rotavirus Vaccine) 3rd Dose" to "https://www.cdc.gov/rotavirus/images/disease_rotavirus_lg.jpg",
+        "DTaP (Diphtheria, Tetanus, Pertussis) 3rd Dose" to "https://www.cdc.gov/pertussis/images/disease_pertussis.jpg",
+        "Hib (Haemophilus influenzae type b) 3rd Dose" to "https://www.cdc.gov/hi-disease/images/PHIL_1947.jpg",
+        "IPV (Inactivated Poliovirus Vaccine) 3rd Dose" to "https://phil.cdc.gov//PHIL_Images/22891/22891_lores.jpg",
+        "PCV13 (Pneumococcal Conjugate Vaccine) 3rd Dose" to "https://www.cdc.gov/pneumococcal/images/phil-3149.jpg",
+        "Hepatitis B Vaccine (HepB) Supplemental" to "https://phil.cdc.gov/PHIL_Images/20040409/db3ccc84adda4f9891b01ea70ad052f9/5631_lores.jpg",
+        "MMR (Measles, Mumps, Rubella)" to "https://phil.cdc.gov/PHIL_Images/10755/10755_lores.jpg",
+        "Varicella (Chickenpox) Vaccine" to "https://www.cdc.gov/chickenpox/images/disease_varicella-lg.jpg",
+        "Hepatitis A Vaccine" to "https://phil.cdc.gov/PHIL_Images/8153/8153_lores.jpg",
+        "DTaP (Diphtheria, Tetanus, Pertussis) 4th Dose" to "https://www.cdc.gov/diphtheria/images/diphtheria-photo-phil-7323.jpg",
+        "Hib (Haemophilus influenzae type b) 4th Dose" to "https://www.cdc.gov/hi-disease/images/PHIL_1616.jpg",
     )
 
     /*

@@ -44,6 +44,13 @@ class VaxinRepositoryImpl(
         return vaxinDao.getChildVaccineCrossRefs(childName)
     }
 
+    override fun getChildVaccineCrossRef(
+        childName: String,
+        vaccineName: String
+    ): ChildVaccineCrossRef {
+        return vaxinDao.getChildVaccineCrossRef(childName, vaccineName)
+    }
+
     /* CRU(D) - DELETE */
     override fun deleteChild(child: Child) {
         vaxinDao.deleteChild(child)
