@@ -1,5 +1,6 @@
 package com.example.vaxin
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavArgument
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -32,69 +34,59 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             VaxinTheme {
-                val TAG = "MAIN_ACTIVITY"
-                val navContoller = rememberNavController()
-                NavHost(
-                    navController = navContoller,
-                    startDestination = Routes.ADD_CHILD_SCREEN
-                ) {
-                    composable(route = Routes.ADD_CHILD_SCREEN) {
-                        AddChildScreen(
-                            onNavigate = { event ->
-                                Log.d(TAG, "Navigate to schedule screen.")
-                                navContoller.navigate(event.route)
-                            }
-                        )
-                    }
-                    composable(
-                        route = Routes.SHOW_SCHEDULE_SCREEN + "?childId={childId}",
-                        arguments = listOf(
-                            navArgument(name = "childId") {
-                                type = NavType.StringType
-                                defaultValue = "Balakrishna"
-                            }
-                        )
-                    ) { backStackEntry ->
-                        val childId = backStackEntry.arguments?.getString("childId") ?: "Balakrishna"
-                        ShowScheduleScreen(
-                            childId = childId,
-                            onNavigate = { event ->
-                                Log.d(TAG, "Navigate to details screen.")
-                                navContoller.navigate(event.route)
-                            }
-                        )
-                    }
-                    composable(
-                        route = Routes.SHOW_DETAIL_SCREEN + "?vaccineId={vaccineId}",
-                        arguments = listOf(
-                            navArgument(name = "vaccineId") {
-                                type = NavType.StringType
-                                defaultValue = "Hepatitis B Vaccine (HepB)"
-                            }
-                        )
-                    ) { backStackEntry ->
-                        val vaccineId = backStackEntry.arguments?.getString("vaccineId") ?: "Hepatitis B Vaccine (HepB)"
-                        ShowDetailScreen(
-                            vaccineId = vaccineId)
-                    }
-                }
-            }
-        }
-    }
+                Surface(tonalElevation = 5.dp) {
+                    val TAG = "MAIN_ACTIVITY"
+                    val navContoller = rememberNavController()
+                    NavHost(
+                        navController = navContoller,
+                        startDestination = Routes.ADD_CHILD_SCREEN
+                    ) {
+                        composable(route = Routes.ADD_CHILD_SCREEN) {
+                            AddChildScreen(
+                                onNavigate = { event ->
+                                    Log.d(TAG, "Navigate to schedule screen.")
+                                    navContoller.navigate(event.route)
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.SHOW_SCHEDULE_SCREEN + "?childId={childId}",
+                            arguments = listOf(
+                                navArgument(name = "childId") {
+                                    type = NavType.StringType
+                                    defaultValue = "Balakrishna"
+                                }
+                            )
+                        ) { backStackEntry ->
+                            val childId =
+                                backStackEntry.arguments?.getString("childId") ?: "Balakrishna"
+                            ShowScheduleScreen(
+                                childId = childId,
+                                onNavigate = { event ->
+                                    Log.d(TAG, "Navigate to details screen.")
+                                    navContoller.navigate(event.route)
+                                }
+                            )
+                        }
+                        composable(
+                            route = Routes.SHOW_DETAIL_SCREEN + "?vaccineId={vaccineId}",
+                            arguments = listOf(
+                                navArgument(name = "vaccineId") {
+                                    type = NavType.StringType
+                                    defaultValue = "Hepatitis B Vaccine (HepB)"
+                                }
+                            )
+                        ) { backStackEntry ->
+                            val vaccineId = backStackEntry.arguments?.getString("vaccineId")
+                                ?: "Hepatitis B Vaccine (HepB)"
+                            ShowDetailScreen(
+                                vaccineId = vaccineId
+                            )
+                        }
+                    }  // end NAVHOST
+                }  // end SURFACE
+            }  // emd VAXIN THEME
+        }  // end SET CONTENT
+    }  // end ON CREATE
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    VaxinTheme {
-        Greeting("Android")
-    }
-}

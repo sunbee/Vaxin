@@ -20,6 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -33,8 +34,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -108,10 +111,7 @@ fun AddChildScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = it)
-                .background(
-                    color = Color.DarkGray,
-                    shape = RoundedCornerShape(16.dp)
-                )
+                .clip(shape = RoundedCornerShape(16.dp))
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
@@ -119,10 +119,7 @@ fun AddChildScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .background(
-                        color = Color.Cyan,
-                        shape = RoundedCornerShape(16.dp)
-                    )
+                    .clip(shape = RoundedCornerShape(16.dp))
             ) {
                 TextField(
                     value = viewModel.childName.value,
@@ -145,6 +142,7 @@ fun AddChildScreen(
                 }
                 Text(
                     text = viewModel.formattedDate.value,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Light
                 )
@@ -154,12 +152,9 @@ fun AddChildScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .background(
-                        color = Color.Cyan,
-                        shape = RoundedCornerShape(16.dp)
-                    )
+                    .clip(shape = RoundedCornerShape(16.dp))
+                    .background(MaterialTheme.colorScheme.primaryContainer)
             ) {
-
                 items(childs.value) {child ->
                     AddChildCard(
                         child = child,
