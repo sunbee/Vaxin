@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.vaxin.util.SampleData
 
@@ -34,6 +37,19 @@ fun ShowDetailScreen(
         Text(text = vaccineId)
         Spacer(modifier = Modifier.height(8.dp))
 
+        SubcomposeAsyncImage(
+            model = SampleData.vaccineImages.get(vaccineId),
+            contentDescription = "CDC Image",
+            contentScale =  ContentScale.Crop,
+            modifier = Modifier
+                .padding(16.dp)
+                .size(256.dp)
+                .clip(CircleShape),
+            loading = { CircularProgressIndicator() }
+        )
+        Text(text = viewModel.vaccineId)
+
+        /*
         Image(
             painter = rememberAsyncImagePainter(model = SampleData.vaccineImages.get(vaccineId)),
             contentDescription = "CDC Image",
@@ -43,5 +59,7 @@ fun ShowDetailScreen(
                 .size(256.dp)
                 .clip(CircleShape))
         Text(text = viewModel.vaccineId)
+         */
+
     }
 }
