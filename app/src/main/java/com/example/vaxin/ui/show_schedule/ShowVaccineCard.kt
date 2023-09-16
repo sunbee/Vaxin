@@ -47,14 +47,10 @@ fun ShowVaccineCard(
     val date: String = ""
 
     BoxWithConstraints(
-        modifier = Modifier
+        modifier = modifier
             .padding(8.dp)
             .size(150.dp)
             .aspectRatio(1f)
-            .background(
-                color = MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(16.dp)
-            )
             .clickable {
                 onEvent(ShowScheduleEvent.OnVaccineClicked(vaccineCrossRef.vaccineName))
             }

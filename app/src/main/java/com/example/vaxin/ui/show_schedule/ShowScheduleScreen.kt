@@ -1,5 +1,6 @@
 package com.example.vaxin.ui.show_schedule
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,9 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.vaxin.data.relations.ChildVaccineCrossRef
 import com.example.vaxin.util.UiEvent
-import kotlinx.coroutines.flow.first
+
 
 @Composable
 fun ShowScheduleScreen(
@@ -94,23 +95,52 @@ fun ShowScheduleScreen(
         val itemsPerRowOverdue = 2
         val rowsVaccinesOverdue = vaccinesOverdue.value.chunked(itemsPerRowOverdue)
 
-        LazyColumn(
-            modifier = Modifier.padding(top = 16.dp)
-        ) {
-            items(rowsVaccinesOverdue) {chunkedChildVaccineCrossRefs ->
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    chunkedChildVaccineCrossRefs.forEach { childVaccineCrossRef ->
-                        ShowVaccineCard(
-                            childName = childId,
-                            vaccineCrossRef = childVaccineCrossRef,
-                            onEvent = viewModel::onEvent)
-                    }
+        if (rowsVaccinesOverdue.isNotEmpty()) {
+            LazyColumn(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .background(MaterialTheme.colorScheme.tertiaryContainer)
+            ) {
+                item {
+                    Text(
+                        text = "Overdue:",
+                        color = MaterialTheme.colorScheme.onTertiaryContainer,
+                        fontStyle = FontStyle.Italic,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(8.dp)
+                    )
                 }
-            }
+                items(rowsVaccinesOverdue) {chunkedChildVaccineCrossRefs ->
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        chunkedChildVaccineCrossRefs.forEach { childVaccineCrossRef ->
+                            ShowVaccineCard(
+                                childName = childId,
+                                vaccineCrossRef = childVaccineCrossRef,
+                                onEvent = viewModel::onEvent,
+                                modifier = Modifier
+                                    .background(
+                                        color = MaterialTheme.colorScheme.tertiary,
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                            )
+                        }  // end FOREACH
+                    }  // end ROW
+                }  // end ITEMS
+            }  // end LAZY COLUMN
+        } else {
+            Text(
+                text = "You are all caught up!",
+                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(8.dp)
+            )
         }
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -121,20 +151,40 @@ fun ShowScheduleScreen(
         val rowsVaccinesDue = vaccinesDue.value.chunked(itemsPerRowDue)
 
         LazyColumn(
-            modifier = Modifier.padding(top = 16.dp)
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .background(MaterialTheme.colorScheme.primaryContainer)
         ) {
+            item {
+                Text(
+                    text = "Coming up next:",
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontStyle = FontStyle.Italic,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
             items(rowsVaccinesDue) {chunkedChildVaccineCrossRefs ->
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
                 ) {
                     chunkedChildVaccineCrossRefs.forEach { childVaccineCrossRef ->
                         ShowVaccineCard(
                             childName = childId,
                             vaccineCrossRef = childVaccineCrossRef,
-                            onEvent = viewModel::onEvent)
-                    }
+                            onEvent = viewModel::onEvent,
+                            modifier = Modifier
+                                .background(
+                                    color = MaterialTheme.colorScheme.primary,
+                                    shape = RoundedCornerShape(16.dp)
+                                )
+                        )
+                    }  // end FOREACH
                 }  // end ROW
             }  // end ITEMS
         }  // end LAZYCOLUMN
