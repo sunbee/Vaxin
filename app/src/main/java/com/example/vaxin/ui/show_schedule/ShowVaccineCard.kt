@@ -3,18 +3,26 @@ package com.example.vaxin.ui.show_schedule
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,48 +44,63 @@ fun ShowVaccineCard(
     onEvent: (ShowScheduleEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround,
+    val date: String = ""
+
+    BoxWithConstraints(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(5.dp)
+            .padding(8.dp)
+            .size(150.dp)
+            .aspectRatio(1f)
             .background(
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.primary,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable(
-                onClick = { onEvent(ShowScheduleEvent.OnVaccineClicked(vaccineCrossRef.vaccineName)) }
-            )
-
+            .clickable {
+                onEvent(ShowScheduleEvent.OnVaccineClicked(vaccineCrossRef.vaccineName))
+            }
     ) {
         Column(
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
-                .fillMaxWidth(0.66f)
-                .padding(16.dp)
+                .fillMaxSize()
+                .padding(
+                    start = 8.dp,
+                    top = 6.dp,
+                    end = 36.dp,
+                    bottom = 5.dp
+                )
+                .align(Alignment.TopStart)
         ) {
             Text(
                 text = vaccineCrossRef.vaccineName,
-                fontSize = 20.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Due: " + vaccineCrossRef.dueDate,
                 fontSize = 16.sp,
-                color = Color.LightGray,
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                text = vaccineCrossRef.dueDate,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onPrimary,
                 fontStyle = FontStyle.Italic
             )
         }
         Checkbox(
             checked = vaccineCrossRef.isDone,
             onCheckedChange = { isChecked ->
-                onEvent(ShowScheduleEvent.OnVaccineChecked(childName, vaccineCrossRef.vaccineName, isChecked))
+                onEvent(
+                    ShowScheduleEvent.OnVaccineChecked(
+                        childName,
+                        vaccineCrossRef.vaccineName,
+                        isChecked
+                    )
+                )
             },
-            modifier = Modifier.padding(8.dp)
+            colors = CheckboxDefaults.colors(
+                checkedColor = MaterialTheme.colorScheme.primary,
+                uncheckedColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            modifier = Modifier.align(Alignment.BottomEnd)
         )
-    }
+    }  // end BOX
 }

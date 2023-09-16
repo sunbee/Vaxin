@@ -16,11 +16,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -28,6 +31,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -120,12 +125,17 @@ fun AddChildScreen(
                     .fillMaxWidth()
                     .padding(16.dp)
                     .clip(shape = RoundedCornerShape(16.dp))
+                    .background(MaterialTheme.colorScheme.primaryContainer)
             ) {
-                TextField(
+                OutlinedTextField(
                     value = viewModel.childName.value,
                     onValueChange = {
                         viewModel.onEvent(AddChildEvent.OnChildNameChange(it))
                     },
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        textColor = MaterialTheme.colorScheme.onBackground
+                    ),
                     placeholder = {
                         Text(text = "Name")
                     },
@@ -134,17 +144,19 @@ fun AddChildScreen(
                         .padding(8.dp),
                     singleLine = true
                 )
-                Button(onClick = {
-                    dateDialogState.show()
-                }) {
+                Button(onClick = { dateDialogState.show() },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )) {
                     Text(text = "Date of Birth")
 
                 }
                 Text(
                     text = viewModel.formattedDate.value,
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Light
+                    fontWeight = FontWeight.Bold
                 )
             }
             Spacer(modifier = Modifier.height(8.dp) )
@@ -155,6 +167,15 @@ fun AddChildScreen(
                     .clip(shape = RoundedCornerShape(16.dp))
                     .background(MaterialTheme.colorScheme.primaryContainer)
             ) {
+                item {
+                    Text(
+                        text = "Children:",
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
                 items(childs.value) {child ->
                     AddChildCard(
                         child = child,
