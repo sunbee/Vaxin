@@ -1,17 +1,13 @@
 package com.example.vaxin.ui.add_child
 
+import android.net.Uri
 import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.vaxin.data.Child
-import com.example.vaxin.data.Vaccine
 import com.example.vaxin.data.VaxinRepository
-import com.example.vaxin.data.relations.ChildVaccineCrossRef
 import com.example.vaxin.util.Routes
 import com.example.vaxin.util.SampleData
 import com.example.vaxin.util.UiEvent
@@ -22,7 +18,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -52,6 +47,8 @@ class AddChildViewModel @Inject constructor(
     * */
     var childName = mutableStateOf<String>("")
         private set
+
+    var selectedImageURI = mutableStateOf<Uri?>(null)
 
     val childs = vaxinRepository.getChilds()
 
@@ -98,7 +95,8 @@ class AddChildViewModel @Inject constructor(
                     }
                     val child = Child(
                         childName = childName.value,
-                        dob = formattedDate.value
+                        dob = formattedDate.value,
+                        imageURI = selectedImageURI.value?.toString()
                     )
                     val childVaccineCrossRefs = SampleData.generateChildVaccineCrossRefs(
                         child = child

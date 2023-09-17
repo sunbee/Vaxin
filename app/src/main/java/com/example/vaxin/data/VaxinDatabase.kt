@@ -9,7 +9,8 @@ import com.example.vaxin.data.relations.ChildVaccineCrossRef
         Child::class,
         Vaccine::class,
         ChildVaccineCrossRef::class],
-    version = 1
+    version = 2,
+    exportSchema = true
 )
 abstract class VaxinDatabase : RoomDatabase() {
     abstract fun vaxinDao(): VaxinDao

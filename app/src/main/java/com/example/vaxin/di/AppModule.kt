@@ -22,7 +22,7 @@ object AppModule {
             app,
             VaxinDatabase::class.java,
             "vaxindb"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides

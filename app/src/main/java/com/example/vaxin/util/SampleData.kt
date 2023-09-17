@@ -20,7 +20,7 @@ object SampleData {
 
 
     val childs = listOf<Child>(
-        Child("Balakrishna", today)
+        Child("Balakrishna", today, null)
     )
 
     val vaccines = listOf<Vaccine>(

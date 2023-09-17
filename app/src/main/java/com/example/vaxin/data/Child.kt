@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Child(
     @PrimaryKey(autoGenerate = false)
     val childName: String,
-    val dob: String
+    val dob: String,
+    val imageURI: String?
 )
