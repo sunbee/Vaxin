@@ -14,4 +14,7 @@ class ShowDetailViewModel @Inject constructor(
     private val TAG = "SHOW_DETAIL"
 
     val vaccineId = savedStateHandle["vaccineId"] ?: "Hepatitis B Vaccine (HepB)"
+
+    val vaccineWithChilds = vaxinRepository.getChildsOfVaccine(vaccineId)
+
 }

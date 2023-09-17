@@ -25,7 +25,26 @@ object SampleData {
 
     val vaccines = listOf<Vaccine>(
         Vaccine("Hepatitis B Vaccine (HepB)",
-            "Helps prevent hepatitis B virus infection. Administered shortly after birth.",
+            """
+                <h1>Hepatitis B Vaccine (HepB)</h1>
+    <p>The Hepatitis B vaccine, often referred to as HepB, is a vaccine that provides protection against the hepatitis B virus (HBV). Hepatitis B is a serious viral infection that affects the liver and can lead to chronic liver disease, cirrhosis, liver cancer, and other complications. The vaccine is an effective preventive measure to reduce the risk of HBV infection.</p>
+
+    <h2>Key Points about the Hepatitis B Vaccine:</h2>
+    <ul>
+        <li><strong>Composition:</strong> The vaccine contains a small, harmless part of the hepatitis B virus, called the hepatitis B surface antigen (HBsAg). This part of the virus is used to stimulate the immune system without causing the disease itself.</li>
+        <li><strong>Vaccination Schedule:</strong> The Hepatitis B vaccine is typically administered as a series of injections. The recommended schedule for most individuals is a three-dose series. The second dose is usually given about one month after the first, and the third dose is given six months after the first dose. In some cases, a two-dose series may be used, especially for adolescents and adults.</li>
+        <li><strong>Target Population:</strong> The vaccine is recommended for a wide range of people, including infants, children, adolescents, and adults. It is often administered shortly after birth to newborns. High-risk groups, such as healthcare workers, people with multiple sexual partners, and individuals with certain medical conditions, are especially encouraged to receive the vaccine.</li>
+        <li><strong>Effectiveness:</strong> The Hepatitis B vaccine is highly effective at preventing hepatitis B infection. After completing the recommended series, most people develop long-lasting immunity to the virus.</li>
+        <li><strong>Combination Vaccines:</strong> In some cases, the Hepatitis B vaccine is combined with other vaccines, such as those for hepatitis A or other diseases, to simplify the vaccination process and reduce the number of injections.</li>
+        <li><strong>Side Effects:</strong> The vaccine is generally safe, with mild side effects such as pain or redness at the injection site being the most common. Serious side effects are rare.</li>
+        <li><strong>Importance of Vaccination:</strong> Hepatitis B is a vaccine-preventable disease, and vaccination is crucial for reducing the transmission of the virus and preventing its potentially severe consequences.</li>
+        <li><strong>Global Impact:</strong> Hepatitis B is a global health concern. The World Health Organization (WHO) recommends universal vaccination against hepatitis B to reduce the prevalence of the disease worldwide.</li>
+        <li><strong>Hepatitis B Immunity Testing:</strong> Some individuals, particularly those at higher risk of HBV exposure, may undergo blood tests to check their immunity to hepatitis B after vaccination. This can help determine if additional vaccine doses are needed.</li>
+        <li><strong>Booster Shots:</strong> In most cases, booster doses of the Hepatitis B vaccine are not routinely recommended for healthy individuals who have completed the initial series. However, some immunocompromised individuals may require periodic booster shots to maintain immunity.</li>
+    </ul>
+
+    <p>It's important to consult with a healthcare provider to determine the appropriate vaccination schedule and whether you should receive the Hepatitis B vaccine based on your individual risk factors and health status. Vaccination is a key public health measure in the prevention of hepatitis B and its complications.</p>
+            """.trimIndent(),
             0),
         Vaccine("RV1 (Rotavirus Vaccine)",
             "Protects against rotavirus, a common cause of severe diarrhea and dehydration in infants.",
