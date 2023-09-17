@@ -62,6 +62,7 @@ fun ShowDetailScreen(
             text = vaccineId,
             fontWeight = FontWeight.ExtraBold,
             fontSize = 24.sp,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis
        )
         Spacer(modifier = Modifier.height(8.dp))
