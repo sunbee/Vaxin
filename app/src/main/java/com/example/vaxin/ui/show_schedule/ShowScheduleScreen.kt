@@ -148,7 +148,7 @@ fun ShowScheduleScreen(
         * Then show the vaccines that are coming due, picking the top 5 from the list.
         * */
         val itemsPerRowDue = 2
-        val rowsVaccinesDue = vaccinesDue.value.chunked(itemsPerRowDue)
+        val rowsVaccinesDue = vaccinesDue.value.take(6).chunked(itemsPerRowDue)
 
         LazyColumn(
             modifier = Modifier
