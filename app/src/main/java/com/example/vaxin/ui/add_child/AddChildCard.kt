@@ -76,11 +76,18 @@ fun AddChildCard(
 
     val contentResolver = remember { context.contentResolver }
 
+    val imageURI = remember {
+        mutableStateOf<String>(
+            child.imageURI?.toString() ?: "android.resource://${context.packageName}/drawable/child"
+        )
+    }
+
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             Log.d(TAG, "Got content uri: ${uri}")
             uri?.let {
+                imageURI.value = it.toString()  // For immediate preview
                 val fileURI = getFileURI(it, child.childName, context, contentResolver)
                 Log.d(TAG, "Got file uri: ${fileURI}")
                 onEvent(AddChildEvent.OnAddChildPhoto(
@@ -89,11 +96,7 @@ fun AddChildCard(
             }
         })
 
-    val imageURI = remember {
-        mutableStateOf<String>(
-            child.imageURI?.toString() ?: "android.resource://${context.packageName}/drawable/child"
-        )
-    }
+
 
 
     Row(
@@ -141,7 +144,7 @@ fun AddChildCard(
                         .padding(8.dp)
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.Start,
+                        horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.fillMaxWidth()
                     ) {
