@@ -1,5 +1,6 @@
 package com.example.vaxin.ui.add_child
 
+import android.net.Uri
 import com.example.vaxin.data.Child
 
 /*
@@ -14,4 +15,5 @@ sealed class AddChildEvent {
     object OnAddChild: AddChildEvent()
     data class OnChildDelete(val child: Child): AddChildEvent()
     object OnChildDeleteUndo: AddChildEvent()
+    data class OnAddChildPhoto(val imageURI: Uri, val child: Child): AddChildEvent()
 }

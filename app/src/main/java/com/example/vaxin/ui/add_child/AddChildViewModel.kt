@@ -1,9 +1,15 @@
 package com.example.vaxin.ui.add_child
 
+import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vaxin.data.Child
@@ -17,6 +23,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -134,6 +142,19 @@ class AddChildViewModel @Inject constructor(
                     }
                 }
             }
+            is AddChildEvent.OnAddChildPhoto -> {
+                Log.d(TAG, "Picked snap at ${addChildEvent.imageURI}")
+                viewModelScope.launch(Dispatchers.IO) {
+                    vaxinRepository.insertChild(addChildEvent.child.copy(
+                        imageURI = addChildEvent.imageURI.toString()
+                    ))
+                }
+                /*
+                Get file URI (file://) for file generated from
+                contents at content URI (content://) and update
+                child's record in DB.
+                 */
+            }
             else -> Unit
         }
     }
@@ -165,6 +186,5 @@ class AddChildViewModel @Inject constructor(
         // Debug: // clearDBContents()  // One-Time ONLY!
         populateDBDefaults()
     }
-
 
 }

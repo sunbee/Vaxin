@@ -2,6 +2,8 @@ package com.example.vaxin.ui.add_child
 
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -61,6 +63,7 @@ fun AddChildScreen(
     modifier: Modifier = Modifier
         .fillMaxSize()
 ) {
+    val TAG = "UI_ADDCHILD"
 
     val childs = viewModel.childs.collectAsState(initial = emptyList())
 
