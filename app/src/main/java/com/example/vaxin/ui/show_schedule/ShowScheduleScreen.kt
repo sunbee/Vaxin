@@ -71,7 +71,7 @@ fun ShowScheduleScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)) {
+            .padding(8.dp)) {
         Text(
             text = "${childId}",
             fontSize = 18.sp,
@@ -115,7 +115,9 @@ fun ShowScheduleScreen(
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp)
                     ) {
                         chunkedChildVaccineCrossRefs.forEach { childVaccineCrossRef ->
                             ShowVaccineCard(
@@ -127,6 +129,7 @@ fun ShowScheduleScreen(
                                         color = MaterialTheme.colorScheme.tertiary,
                                         shape = RoundedCornerShape(16.dp)
                                     )
+                                    .padding(6.dp)
                             )
                         }  // end FOREACH
                     }  // end ROW
@@ -167,7 +170,7 @@ fun ShowScheduleScreen(
             }
             items(rowsVaccinesDue) {chunkedChildVaccineCrossRefs ->
                 Row(
-                    horizontalArrangement = Arrangement.SpaceAround,
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()

@@ -84,7 +84,7 @@ fun ShowDetailScreen(
                 .fillMaxWidth()
                 .height(350.dp)
                 .verticalScroll(scroll)
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.secondaryContainer),
             factory = {
                 TextView(it)
             },
