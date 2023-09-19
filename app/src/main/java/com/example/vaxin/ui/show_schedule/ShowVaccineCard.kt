@@ -49,13 +49,14 @@ fun ShowVaccineCard(
 
     BoxWithConstraints(
         modifier = modifier
-            .padding(8.dp)
+            .padding(0.dp)
             .size(150.dp)
             .aspectRatio(1f)
             .clickable {
                 onEvent(ShowScheduleEvent.OnVaccineClicked(vaccineCrossRef.vaccineName))
             }
     ) {
+        ShowScheduleGeom(color = MaterialTheme.colorScheme.inverseOnSurface)
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,

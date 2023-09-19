@@ -129,7 +129,6 @@ fun ShowScheduleScreen(
                                         color = MaterialTheme.colorScheme.tertiary,
                                         shape = RoundedCornerShape(16.dp)
                                     )
-                                    .padding(6.dp)
                             )
                         }  // end FOREACH
                     }  // end ROW
@@ -170,7 +169,7 @@ fun ShowScheduleScreen(
             }
             items(rowsVaccinesDue) {chunkedChildVaccineCrossRefs ->
                 Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.SpaceAround,
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
